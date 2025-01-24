@@ -10,7 +10,7 @@ const bodyParser = z.object({
   meetingUrl: z.string(),
 });
 
-const maxDuration = 300; //5minutes
+export const maxDuration = 300; //5minutes
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -35,8 +35,8 @@ export async function POST(req: NextRequest) {
         headline: summary.headline,
         summary: summary.summary,
         meetingId,
-      })),
-    });
+      }))
+    })
     await db.meeting.update({
       // at first our meeting status is processing based on the cretaed summary we are creating the issues and then
       // we are updating the status to completed based on the meetingId.

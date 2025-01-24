@@ -139,8 +139,8 @@ export const projectRouter = createTRPCRouter({
         },
         include: {
           issues: true,
-        }
-      })
+        },
+      });
     }),
   deleteMeeting: protectedProcedure
     .input(
@@ -164,8 +164,8 @@ export const projectRouter = createTRPCRouter({
         },
         include: {
           issues: true,
-        },
-      });
+        }
+      })
     }),
   archiveProject: protectedProcedure
     .input(
@@ -214,7 +214,7 @@ export const projectRouter = createTRPCRouter({
       const userCredits = await ctx.db.user.findUnique({
         where: { id: ctx.user.userId! },
         select: { credits: true },
-      })
+      });
       return { fileCount, userCredits: userCredits?.credits || 0 };
     }),
 });
