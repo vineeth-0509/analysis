@@ -10,7 +10,7 @@ const bodyParser = z.object({
   meetingUrl: z.string(),
 });
 
-export const maxDuration = 300; //5minutes
+export const maxDuration = 60; //5minutes
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth();
@@ -28,15 +28,15 @@ export async function POST(req: NextRequest) {
     const { summaries } = await processMeeting(meetingUrl);
     // we create all the issues and link it to the meetingId.
     await db.issue.createMany({
-      data: summaries.map(summary => ({
+      data: summaries.map((summary) => ({
         start: summary.start,
         end: summary.end,
         gist: summary.gist,
         headline: summary.headline,
         summary: summary.summary,
         meetingId,
-      }))
-    })
+      })),
+    });
     await db.meeting.update({
       // at first our meeting status is processing based on the cretaed summary we are creating the issues and then
       // we are updating the status to completed based on the meetingId.
