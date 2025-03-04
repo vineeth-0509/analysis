@@ -169,7 +169,7 @@ export const getCommitHashes = async (
   }));
 };
 
-console.log(await getCommitHashes(githubUrl));
+//console.log(await getCommitHashes(githubUrl));
 
 export const pollCommits = async (projectId: string) => {
   const { project, githubUrl } = await fetchProjectGithubUrl(projectId);

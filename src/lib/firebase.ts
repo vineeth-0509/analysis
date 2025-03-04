@@ -13,22 +13,23 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBCxLnB1WTL5k4exUpuZBa76NLLdhtSydA",
-  authDomain: "projectmusicapp-59cc0.firebaseapp.com",
-  projectId: "projectmusicapp-59cc0",
-  storageBucket: "projectmusicapp-59cc0.appspot.com",
-  messagingSenderId: "651662434361",
-  appId: "1:651662434361:web:7d541e0ba665b9ca8e6de8",
+  apiKey: "AIzaSyCQbg_5lBae2H8Tf11WUonuiVYyEQ7xmoA",
+  authDomain: "abiding-circle-448421-c6.firebaseapp.com",
+  projectId: "abiding-circle-448421-c6",
+  storageBucket: "abiding-circle-448421-c6.firebasestorage.app",
+  messagingSenderId: "141090333016",
+  appId: "1:141090333016:web:dd943d67b2dca64945c52d",
+  measurementId: "G-VVCXCHP2CP",
 };
 
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
-isSupported().then((supported)=> {
-  if(supported){
+isSupported().then((supported) => {
+  if (supported) {
     const analytics = getAnalytics(app);
   }
-})
+});
 
 export const storage = getStorage(app);
 
@@ -48,7 +49,8 @@ export async function uploadFile(
         "state_changed",
         (snapshot) => {
           const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100); //this gives the percentage.
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+          ); //this gives the percentage.
           if (setProgress) setProgress(progress);
           switch (snapshot.state) {
             case "paused":
