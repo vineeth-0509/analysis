@@ -131,7 +131,7 @@ import { aiSummariseCommit } from "./gemini";
 export const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
-//const githubUrl = "https://github.com/vineeth-0509/resume-builder";
+const githubUrl = "https://github.com/vineeth-0509/genz-course";
 
 interface Response {
   commitHash: string;
@@ -149,13 +149,12 @@ export const getCommitHashes = async (
     throw new Error("Invalid github url");
   }
   // const response = await octokit.request(`GET/repos/${owner}/${repo}/commits`);
-  // return response.data.map((commit)=>({
-
-  // }))
+  // return response.data.map((commit) => ({}));
   const { data } = await octokit.rest.repos.listCommits({
-    owner,
-    repo,
+    owner: "vineeth-0509",
+    repo: "genz-course",
   });
+
   const sortedCommits = data.sort(
     (a: any, b: any) =>
       new Date(b.commit.author.date).getTime() -
@@ -169,6 +168,8 @@ export const getCommitHashes = async (
     commitDate: commit.commit?.author.date ?? "",
   }));
 };
+
+console.log(await getCommitHashes(githubUrl));
 
 export const pollCommits = async (projectId: string) => {
   const { project, githubUrl } = await fetchProjectGithubUrl(projectId);
@@ -195,7 +196,7 @@ export const pollCommits = async (projectId: string) => {
         projectId: projectId,
         commitHash: unprocessedCommits[index]!.commitHash,
         commitMessage: unprocessedCommits[index]!.commitMessage,
-        commitAuthor: unprocessedCommits[index]!.commitAuthorName, // Added commitAuthor
+        commitAuthorName: unprocessedCommits[index]!.commitAuthorName, // Renamed commitAuthor to commitAuthorName
         commitAuthorAvatar: unprocessedCommits[index]!.commitAuthorAvatar,
         commitDate: unprocessedCommits[index]!.commitDate,
         summary,
@@ -250,5 +251,6 @@ async function filterUnprocessedCommits(
   return unprocessedCommits;
 }
 
-await pollCommits("cm6515psv0009z7t8wx6ub2j9").then(console.log);
+// await pollCommits("cm6515psv0009z7t8wx6ub2j9").then(console.log);
+getCommitHashes(githubUrl);
 //https://chatgpt.com/share/678c9b26-a0b4-800f-bd5a-456f47d0c51d
