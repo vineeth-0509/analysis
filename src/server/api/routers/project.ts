@@ -164,8 +164,8 @@ export const projectRouter = createTRPCRouter({
         },
         include: {
           issues: true,
-        }
-      })
+        },
+      });
     }),
   archiveProject: protectedProcedure
     .input(
@@ -205,16 +205,9 @@ export const projectRouter = createTRPCRouter({
       select: { credits: true },
     });
   }),
-  checkCredits: protectedProcedure
-    .input(
-      z.object({ githubUrl: z.string(), githubToken: z.string().optional() }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const fileCount = await checkCredits(input.githubUrl, input.githubToken);
-      const userCredits = await ctx.db.user.findUnique({
-        where: { id: ctx.user.userId! },
-        select: { credits: true },
-      });
-      return { fileCount, userCredits: userCredits?.credits || 0 };
-    }),
+checkCredits: protectedProcedure.input(z.object({githubUrl: z.string(), githubToken: z.string().optional()})).mutation(async ({ctx, input})=> {
+  const fileCount = await checkCredits(input.githubUrl, input.githubToken)
+  const userCredits = await ctx.db.user.findUnique({where: {id: ctx.user.userId!}, select:{credits: true}})
+  return { fileCount, userCredits: userCredits?.credits || 0}
+} )
 });
