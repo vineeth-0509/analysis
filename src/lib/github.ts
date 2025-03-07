@@ -131,7 +131,7 @@ import { aiSummariseCommit } from "./gemini";
 export const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
-const githubUrl = "https://github.com/vineeth-0509/genz-course";
+//const githubUrl = "https://github.com/vineeth-0509/genz-course";
 
 interface Response {
   commitHash: string;
@@ -151,8 +151,8 @@ export const getCommitHashes = async (
   // const response = await octokit.request(`GET/repos/${owner}/${repo}/commits`);
   // return response.data.map((commit) => ({}));
   const { data } = await octokit.rest.repos.listCommits({
-    owner: "vineeth-0509",
-    repo: "genz-course",
+    owner,
+    repo,
   });
 
   const sortedCommits = data.sort(
@@ -252,5 +252,5 @@ async function filterUnprocessedCommits(
 }
 
 // await pollCommits("cm6515psv0009z7t8wx6ub2j9").then(console.log);
-getCommitHashes(githubUrl);
+//getCommitHashes(githubUrl);
 //https://chatgpt.com/share/678c9b26-a0b4-800f-bd5a-456f47d0c51d
