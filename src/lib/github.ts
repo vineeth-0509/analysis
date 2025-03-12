@@ -15,6 +15,13 @@
 //   commitDate: string;
 // }
 
+interface Response {
+  commitHash: string;
+  commitMessage: string;
+  commitAuthorName: string;
+  commitAuthorAvatar: string;
+  commitDate: string;
+}
 // export const getCommitHashes = async (
 //   githubUrl: string,
 // ): Promise<Response[]> => {
@@ -43,6 +50,18 @@
 //     commitDate: commit.commit?.author.date ?? "",
 //   }));
 // };
+
+
+export const getCommitHashes = async(
+  githubUrl: string
+): promise<Response string[]> =>{
+  const [owner, repo] = fetchProjectGithubUrl.split("/").slice(-2);
+  if(!owner || !repo){
+    throw new Error("Invalid github Url:")
+  }
+  const {data} = await octokit.
+
+}
 
 // export const pollCommits = async (projectId: string) => {
 //   const { project, githubUrl } = await fetchProjectGithubUrl(projectId);

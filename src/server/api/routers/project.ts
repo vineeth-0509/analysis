@@ -24,7 +24,8 @@ export const projectRouter = createTRPCRouter({
       if (currentCredits < fileCount) {
         throw new Error("Insufficient credits");
       }
-      const project = await ctx.db.project.create({
+     // const project = await ctx.db.project.create({
+        const project = await ctx.db.project.create({
         data: {
           name: input.name,
           githubUrl: input.githubUrl,
